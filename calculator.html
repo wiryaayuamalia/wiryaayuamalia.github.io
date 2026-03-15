@@ -1,0 +1,242 @@
+<!DOCTYPE html>                
+<html lang="id">               
+<head>
+  <meta charset="UTF-8"/>     
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+  <title>Kalkulator</title>   
+
+
+  <style>
+
+    
+    :root {
+      --grey-100: #f5f5f5;   
+      --grey-200: #e8e8e8;   
+      --grey-300: #d0d0d0;   
+      --grey-400: #a8a8a8;   
+      --grey-500: #787878;   
+      --grey-700: #444444;
+      --grey-900: #222222; 
+      --white:    #ffffff;   
+    }
+
+    * {
+      box-sizing: border-box; 
+      margin: 0;              
+      padding: 0;             
+    }
+
+    body {
+      min-height: 100vh;             
+      display: flex;                 
+      flex-direction: column;       
+      align-items: center;          
+      justify-content: center;      
+      background: #ffffff;          
+      font-family: Arial, sans-serif; 
+    }
+
+    h1 {
+      font-style: normal;       
+      font-weight: 700;      
+      color: var(--grey-900);  
+      font-size: 1.1rem;     
+      margin-bottom: 20px;     
+      letter-spacing: 0.12em;  
+    }
+    
+    .calc {
+      background: var(--grey-100);          
+      border: 2px solid var(--grey-300);    
+      border-radius: 24px;                  
+      padding: 22px 20px 20px;            
+      width: 290px;                      
+    }
+
+    .display-wrap {
+      background: var(--white);              
+      border: 2px solid var(--grey-300);     
+      border-radius: 14px;                   
+      padding: 12px 16px;                    
+      margin-bottom: 16px;                   
+      min-height: 72px;                      
+      display: flex;                         
+      flex-direction: column;                
+      align-items: flex-end;                 
+      justify-content: flex-end;             
+      gap: 2px;                              
+    }
+
+    #expr {
+      font-size: 0.7rem;         
+      color: var(--grey-400);     
+      min-height: 14px;           
+      font-weight: 500;          
+    }
+
+    #layar {
+      font-size: 2rem;            
+      font-weight: 700;           
+      color: var(--grey-700);     
+      word-break: break-all;     
+      text-align: right;         
+      line-height: 1.1;        
+    }
+
+    .divider {
+      height: 1.5px;                   
+      background: var(--grey-300);    
+      border-radius: 2px;              
+      margin-bottom: 16px;             
+    }
+
+    .grid {
+      display: grid;                         
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 9px;                              
+    }
+
+    button {
+      font-family: Arial, sans-serif;              
+      font-size: 1.05rem;                   
+      font-weight: 700;                    
+      border: 2px solid transparent;       
+      border-radius: 12px;                  
+      cursor: pointer;                     
+      height: 54px;                         
+      transition: transform 0.1s, background 0.15s; 
+      letter-spacing: 0.02em;               
+    }
+
+    button:active { transform: scale(0.94); }      
+
+   
+    .btn-num {
+      background: var(--white);          
+      color: var(--grey-700);            
+      border-color: var(--grey-200);    
+    }
+    .btn-num:hover {
+      background: var(--grey-100);       
+      border-color: var(--grey-300);     
+    }
+
+    .btn-plus  { background: #fde8e8; color: #c0504d; border-color: #f5c0c0; } 
+    .btn-minus { background: #e8f0fd; color: #4a72c0; border-color: #b8cef5; } 
+    .btn-times { background: #fdf5e8; color: #c08a30; border-color: #f5dfa0; } 
+    .btn-div   { background: #edfde8; color: #4aaa55; border-color: #b0f0b8; } 
+
+    .btn-plus:hover  { background: #f5c0c0; }  
+    .btn-minus:hover { background: #b8cef5; }
+    .btn-times:hover { background: #f5dfa0; }
+    .btn-div:hover   { background: #b0f0b8; }
+
+    .btn-eq {
+      background: #ede8fd;               
+      color: #7050c0;                   
+      border-color: #c8b8f5;            
+      font-size: 1.3rem;                
+    }
+    .btn-eq:hover {
+      background: #c8b8f5;              
+    }
+
+    .btn-clear {
+      background: #fdf0e8;               
+      color: #c07040;                    
+      border-color: #f5c8a0;             
+      font-weight: 700;                  
+    }
+    .btn-clear:hover {
+      background: #f5c8a0;              
+    }
+
+    footer {
+      margin-top: 16px;            
+      font-size: 0.7rem;             
+      color: var(--grey-400);       
+      letter-spacing: 0.06em;       
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>PROGRAM KALKULATOR</h1>  
+
+  <div class="calc">          
+
+    <div class="display-wrap">                 
+      <div id="expr"></div>                    
+      <div id="layar">0</div>                   
+    </div>
+
+    <div class="divider"></div>                
+
+    <div class="grid">                         
+
+      <button class="btn-num"   onclick="tekanAngka('1')">1</button>
+      <button class="btn-num"   onclick="tekanAngka('2')">2</button>
+      <button class="btn-num"   onclick="tekanAngka('3')">3</button>
+      <button class="btn-plus"  onclick="tekanOperator('+')">+</button>
+
+      <button class="btn-num"   onclick="tekanAngka('4')">4</button>
+      <button class="btn-num"   onclick="tekanAngka('5')">5</button>
+      <button class="btn-num"   onclick="tekanAngka('6')">6</button>
+      <button class="btn-minus" onclick="tekanOperator('-')">−</button>
+
+      <button class="btn-num"   onclick="tekanAngka('7')">7</button>
+      <button class="btn-num"   onclick="tekanAngka('8')">8</button>
+      <button class="btn-num"   onclick="tekanAngka('9')">9</button>
+      <button class="btn-times" onclick="tekanOperator('*')">×</button>
+
+      <button class="btn-clear" onclick="empty()">C</button>
+      <button class="btn-num"   onclick="tekanAngka('0')">0</button>
+      <button class="btn-eq"    onclick="hitung()">=</button>
+      <button class="btn-div"   onclick="tekanOperator('/')">÷</button>
+
+    </div>
+  </div>
+
+  <footer>Copyright &copy; 2026 by Wirya Ayu.</footer> 
+
+  <script>
+
+    var input = '';  
+    function updateDisplay(val) {
+      document.getElementById('layar').textContent = val === '' ? '0' : val;
+    }
+
+    function tekanAngka(a) {
+      input += a;                                        
+      document.getElementById('expr').textContent = '';  
+      updateDisplay(input);                              
+    }
+
+    function tekanOperator(op) {
+      input += op;          
+      updateDisplay(input); 
+    }
+
+    function empty() {
+      input = '';                                         
+      document.getElementById('expr').textContent = '';  
+      updateDisplay('0');                                
+    }
+
+
+    function hitung() {
+      try {
+        var hasil = eval(input);                                      
+        document.getElementById('expr').textContent = input + ' =';  
+        input = String(hasil);                                        
+        updateDisplay(input);                                         
+      } catch(e) {
+        document.getElementById('layar').textContent = 'Error';      
+        input = '';                                                 
+      }
+    }
+
+  </script>
+</body>
+</html>
